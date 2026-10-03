@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>wawatypes — race your words</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark">w</span><span>wawatypes</span></div>
+    <div class="round-pill"><span class="live-dot"></span><span id="roundLabel">waiting room</span></div>
+    <button class="icon-btn" aria-label="Toggle theme">◐</button>
+  </header>
+
+  <main class="app-shell">
+    <aside class="sidebar">
+      <div class="side-head"><div><p class="eyebrow">lobby leaderboard</p><h2>Racers <span id="playerCount">03</span><small>/10</small></h2></div><span class="mini-status">LIVE</span></div>
+      <div class="leaderboard" id="leaderboard"></div>
+      <div class="side-footer"><span class="muted">Average lobby WPM</span><strong id="avgWpm">—</strong></div>
+      <div class="side-tip"><span>⌁</span><p>Fast fingers, clean finish.<br>Five rounds. One winner.</p></div>
+    </aside>
+
+    <section class="stage">
+      <div class="stage-top"><span id="roundNumber">round 01 <i>/ 05</i></span><span id="stageHint">waiting for host to start</span></div>
+
+      <div class="lobby-card" id="lobbyView">
+        <div class="lobby-intro"><span class="overline">room ready</span><h1>Race your<br><em>words.</em></h1><p>Share the code. Settle the score.</p></div>
+        <div class="code-panel"><span class="label">lobby code</span><div class="code">N8K<span>•</span>4R</div><button class="copy-btn" id="copyBtn">copy code <span>↗</span></button></div>
+        <div class="people-row"><div class="avatars"><span class="avatar avatar-you">YO</span><span class="avatar avatar-mira">M</span><span class="avatar avatar-alex">A</span><span class="avatar avatar-more">+7</span></div><span class="muted">3 racers in the room</span></div>
+        <button class="primary-btn" id="startBtn">start race <span>→</span></button>
+        <p class="shortcut">host can start solo <kbd>↵</kbd></p>
+      </div>
+
+      <div class="race-view hidden" id="raceView">
+        <div class="race-track" id="raceTrack"></div>
+        <div class="countdown" id="countdown">5</div>
+        <div class="typing-card"><div class="typing-meta"><span class="tag" id="statusTag">GET READY</span><span class="timer" id="timer">00:00</span></div><div class="prompt" id="prompt"></div><input id="typeInput" autocomplete="off" spellcheck="false" aria-label="Type the paragraph here" disabled placeholder="Type here when the race begins…" /></div>
+        <div class="race-bottom"><span class="muted">accuracy <b id="accuracy">100%</b></span><span class="muted">wpm <b id="liveWpm">0</b></span><button class="finish-btn" id="finishBtn">finish round</button></div>
+      </div>
+
+      <div class="results-view hidden" id="resultsView"><div class="results-hero"><span class="overline">round complete</span><h1>That was<br><em>clean.</em></h1><p>Your words moved at <strong id="resultWpm">78</strong> wpm with <strong id="resultAccuracy">98%</strong> accuracy.</p></div><div class="result-grid" id="resultGrid"></div><button class="primary-btn" id="nextBtn">next round <span>→</span></button><p class="shortcut">round <span id="resultRound">01</span> of 05</p></div>
+    </section>
+  </main>
+  <footer class="footer"><span>© 2026 wawatypes</span><span>minimal by design <b>✦</b></span></footer>
+  <script src="script.js"></script>
+</body>
+</html>
