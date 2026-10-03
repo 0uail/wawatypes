@@ -33,7 +33,7 @@ wss.on('connection', ws => {
       let lobby;
       if (msg.type === 'host') {
         let lobbyCode; do lobbyCode = code(); while (lobbies.has(lobbyCode));
-        lobby = { code: lobbyCode, hostId: crypto.randomUUID(), round: 1, status: 'waiting', paragraph: words[0], players: [] };
+        lobby = { code: lobbyCode, hostId: crypto.randomUUID(), round: 1, status: 'waiting', paragraph: words[0].toLowerCase(), players: [] };
         lobbies.set(lobbyCode, lobby);
         ws.clientId = lobby.hostId;
       } else {
@@ -49,6 +49,7 @@ wss.on('connection', ws => {
     }
     if (msg.type === 'start') {
       const lobby = lobbies.get(ws.lobbyCode); if (!lobby || lobby.hostId !== ws.clientId) return;
+      if (lobby.status === 'results') { lobby.round = lobby.round >= 5 ? 1 : lobby.round + 1; lobby.paragraph = words[lobby.round - 1].toLowerCase(); lobby.players.forEach(p => { p.wpm = 0; p.progress = 0; }); }
       lobby.status = 'countdown'; lobby.startedAt = Date.now(); broadcast(lobby, { type: 'countdown', seconds: 5, lobby: snapshot(lobby) });
       setTimeout(() => { if (!lobbies.has(lobby.code)) return; lobby.status = 'racing'; lobby.startedAt = Date.now(); broadcast(lobby, { type: 'race', lobby: snapshot(lobby) }); }, 5000);
     }
@@ -59,7 +60,7 @@ wss.on('connection', ws => {
     if (msg.type === 'finish') {
       const lobby = lobbies.get(ws.lobbyCode); const p = lobby?.players.find(x => x.id === ws.clientId); if (!p) return;
       p.wpm = Math.round(Number(msg.wpm) || p.wpm); p.points = Math.max(1, Math.min(10, Math.round((Number(msg.accuracy) || 100) / 10))); p.progress = 100;
-      broadcast(lobby, { type: 'results', lobby: snapshot(lobby) });
+      lobby.status = 'results'; broadcast(lobby, { type: 'results', lobby: snapshot(lobby) });
     }
   });
   ws.on('close', () => { const lobby = lobbies.get(ws.lobbyCode); if (!lobby) return; lobby.players = lobby.players.filter(p => p.id !== ws.clientId); if (!lobby.players.length) lobbies.delete(lobby.code); else broadcast(lobby, { type: 'lobby', lobby: snapshot(lobby) }); });
