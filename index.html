@@ -39,7 +39,7 @@
         <div class="race-track" id="raceTrack"></div>
         <div class="countdown" id="countdown">5</div>
         <div class="typing-card"><div class="typing-meta"><span class="tag" id="statusTag">GET READY</span><span class="timer" id="timer">00:00</span></div><div class="prompt" id="prompt"></div><input id="typeInput" autocomplete="off" spellcheck="false" aria-label="Type the paragraph here" disabled placeholder="Type here when the race begins…" /></div>
-        <div class="race-bottom"><span class="muted">accuracy <b id="accuracy">100%</b></span><span class="muted">wpm <b id="liveWpm">0</b></span><button class="finish-btn" id="finishBtn">finish round</button></div>
+        <div class="race-bottom"><div class="accuracy-meter"><span class="muted">accuracy <b id="accuracy">100%</b></span><i><em id="accuracyFill"></em></i></div><span class="muted">wpm <b id="liveWpm">0</b></span><button class="finish-btn" id="finishBtn">finish round</button></div>
       </div>
 
       <div class="results-view hidden" id="resultsView"><div class="results-hero"><span class="overline">round complete</span><h1>That was<br><em>clean.</em></h1><p>Your words moved at <strong id="resultWpm">78</strong> wpm with <strong id="resultAccuracy">98%</strong> accuracy.</p></div><div class="result-grid" id="resultGrid"></div><button class="primary-btn" id="nextBtn">next round <span>→</span></button><p class="shortcut">round <span id="resultRound">01</span> of 05</p></div>
